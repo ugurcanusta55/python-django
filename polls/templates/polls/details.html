@@ -1,0 +1,33 @@
+{% extends 'polls/header.html' %}
+
+{% block body %}
+    <img src="{{album.album_logo}}">
+    <h1>{{ album.album_title }}</h1>
+    <h2>{{ album.artist }}</h2>
+<ul>
+{% for song in album.song_set.all %}
+<li>{{song.song_title}}</li>
+{%endfor%}
+</ul>
+<form action="{% url 'polls:album-delete' album.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-trash"></span>
+    </button>
+</form>
+
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+
+
+    <style>
+    img{
+     height: 150px;
+    width: 150px;
+    }
+</style>
+{% endblock  %}
+
+
+
